@@ -26,6 +26,7 @@ class RegisterFragment : Fragment() {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         binding.lifecycleOwner = this
+        binding.viewModel = viewModel
         return binding.root
 
     }

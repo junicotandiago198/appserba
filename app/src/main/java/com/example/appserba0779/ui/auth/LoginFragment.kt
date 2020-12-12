@@ -26,11 +26,12 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         binding.lifecycleOwner = this
+        binding.viewModel = viewModel
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         init()
         observe()
     }
@@ -42,16 +43,17 @@ class LoginFragment : Fragment() {
     }
 
     private fun observe() {
-      viewModel.authLogin.observe(viewLifecycleOwner) {
-          if (it.isConsumed) {
-              Log.i("Login", "isConsumed")
-          }else if (!it.isSuccess) {
-              Toast.makeText(parent, it.message, Toast.LENGTH_SHORT).show()
-          } else {
-              Toast.makeText(parent, it.message, Toast.LENGTH_SHORT).show()
-              parent.onSuccess(it.data)
-          }
-          it.isConsumed = true
-      }
+        viewModel.authLogin.observe(viewLifecycleOwner){
+            if (it.isConsumed){
+                Log.i("Login", "isConsumed")
+            } else if (!it.isSuccess){
+                Toast.makeText(parent, it.message, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(parent, it.message, Toast.LENGTH_SHORT).show()
+                parent.onSuccess(it.data)
+            }
+            it.isConsumed = true
+        }
     }
+
 }

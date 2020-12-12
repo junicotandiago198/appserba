@@ -15,7 +15,7 @@ object AppserbaAuth {
        CoroutineScope(Dispatchers.IO).launch {
            val resp = repo.logout()
            withContext(Dispatchers.Main) {
-               if(callback != null) callback.invoke(resp)
+               if(callback !=null) callback.invoke(resp)
            }
        }
     }

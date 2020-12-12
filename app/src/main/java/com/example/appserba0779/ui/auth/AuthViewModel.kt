@@ -28,11 +28,12 @@ class AuthViewModel(val repo: AuthRepository) : ViewModel() {
 
     fun register() {
         viewModelScope.launch {
-            val resp = repo.register(AuthUser(
+            val resp = repo.register(
+                    AuthUser(
                     email = email.value ?: "",
                     password = password.value ?: "",
                     fullName = fullName.value ?: ""
-            )
+                 )
             )
             authRegister.value = resp
         }
